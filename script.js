@@ -33,6 +33,11 @@ socket.on("update", data => {
             socket.emit('move', D, p)
         }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+    ctx.rect(0, 0, canvas.width, canvas.height);
+  ctx.lineWidth = "25";
+    ctx.stroke();
+  ctx.closePath()
     // Draw each player
   for(let playerID of Object.keys(data.players)) {
     // Get the the player from the player's id
@@ -46,6 +51,7 @@ socket.on("update", data => {
         ${player.color.g},
         ${player.color.b})`;
     ctx.fill();
+    ctx.lineWidth = "5";
     ctx.stroke();
     ctx.closePath();
 
