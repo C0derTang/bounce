@@ -32,7 +32,6 @@ socket.on("update", data => {
         if (right == 1){
             socket.emit('move', D, p)
         }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
     ctx.rect(0, 0, canvas.width, canvas.height);
   ctx.lineWidth = "25";
