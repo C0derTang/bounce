@@ -34,6 +34,11 @@ socket.on("update", data => {
         }
   ctx.beginPath();
     ctx.rect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = `rgb(
+        211,
+        211,
+        211`;
+    ctx.fill();
   ctx.lineWidth = "25";
     ctx.stroke();
   ctx.closePath()
