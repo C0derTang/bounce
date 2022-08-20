@@ -26,14 +26,14 @@ io.sockets.on("connection", socket => {
 
   // New player connected
   console.log("player connected");
-
   // Create new player
   data.players[socket.id] = {
     pos:{x:Math.random() * ((width-30) - 30 +1) + 30, y:Math.random() * ((height-30) - 30 +1) + 30},
     vel:{xv:0, yv:0},
     mass:1,
     size:30,
-    color:{r:Math.random()*255, g:Math.random()*255, b:Math.random()*255}
+    color:{r:Math.random()*255, g:Math.random()*255, b:Math.random()*255},
+    uname:''
   };
     io.emit('update', data);
 console.log(data);
@@ -57,21 +57,19 @@ setInterval(function(){
                 p2 = data.players[playerID];
                 rad = Math.sqrt((p.pos.x - p2.pos.x)**2 + (p.pos.y - p2.pos.y)**2)
                 if (rad <= 60){
-
-        // Get the the player from the player's id
     
-    dot = ((p.vel.xv - p2.vel.xv) * (p.pos.x - p2.pos.x)) + ((p.vel.yv - p2.vel.yv) * (p.pos.y - p2.pos.y))
-    let temp1 = ((dot / rad**2)*(p2.pos.x-p.pos.x));
-    let temp2 = ((dot / rad**2)*(p2.pos.y-p.pos.y));
-    p2.vel.xv = ((dot / rad**2)*(p.pos.x-p2.pos.x));
-    p2.vel.yv = ((dot / rad**2)*(p.pos.y-p2.pos.y));
-    p.vel.xv = temp1;
-    p.vel.yv = temp2;
-                }
-            
-            }
-
-        }
+                  dot = ((p.vel.xv - p2.vel.xv) * (p.pos.x - p2.pos.x)) + ((p.vel.yv - p2.vel.yv) * (p.pos.y - p2.pos.y))
+                  let temp1 = ((dot / rad**2)*(p2.pos.x-p.pos.x));
+                  let temp2 = ((dot / rad**2)*(p2.pos.y-p.pos.y));
+                  p2.vel.xv = ((dot / rad**2)*(p.pos.x-p2.pos.x));
+                  p2.vel.yv = ((dot / rad**2)*(p.pos.y-p2.pos.y));
+                  p.vel.xv = temp1;
+                  p.vel.yv = temp2;
+                              }
+                          
+                          }
+              
+                      }
       
 
 
@@ -136,8 +134,17 @@ setInterval(function(){
         player.pos.y = 0;
     }
   });
+
+socket.on("username", pname => {
+    // Get the current player
+  let player = data.players[socket.id];
+    player.uname = pname;
+    
+  });
+  
 });
 
+  
 
 
 http.listen(process.env.PORT);
