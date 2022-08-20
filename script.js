@@ -1,3 +1,5 @@
+const person = prompt("Player Name?");
+
 const socket = io();
 
 /* Setup */
@@ -18,6 +20,7 @@ let right = 0;
 
 // Get the update from the server
 socket.on("update", data => {
+  socket.emit('username', person);
     p = data.players[socket.id];
     
     if (up == 1){
@@ -35,9 +38,9 @@ socket.on("update", data => {
   ctx.beginPath();
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = `rgb(
-        211,
-        211,
-        211`;
+        200,
+        200,
+        200`;
     ctx.fill();
   ctx.lineWidth = "25";
     ctx.stroke();
@@ -59,6 +62,10 @@ socket.on("update", data => {
     ctx.stroke();
     ctx.closePath();
 
+    ctx.fillStyle = `rgb(
+        0,0,0)`;
+    ctx.font = "20px Arial";
+    ctx.fillText(player.uname, player.pos.x-((player.uname.length/2)*10), player.pos.y+5);
   }
 });
 
